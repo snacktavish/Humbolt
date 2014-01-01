@@ -1,0 +1,109 @@
+
+Outline:\\
+Key question:\\
+  - How do we incorporate new data into our estimates of phylogeny?\\
+
+Introduction:\\
+  - The importance of phylogenetics in research today\\
+     - medical\\
+     - comparative methods\\
+  - New data\\
+     - Next generation sequencing\\
+     - genetic data available for 10000's of species. \\
+     - very large trees\\
+     - Open tree of life project\\
+  - Current methods for adding data
+     - re-analysis 
+\\         pros
+\\         cons
+\\     - placement based techniques
+\\         pros
+\\         cons
+\\     - Stamatakis Perpetually updating trees
+\\  - Our approach:       
+\\      - rapidly updating phylogenetic trees with new sequences
+\\      - Connexions to Stamatakis work and Holder work
+\\      
+\\Aims:
+\\ - to develop a method to add new taxa to trees and rapidly evaluate the utility of the new tree that is faster than full reanalysis and better than placement
+\\Methods:
+\\  - What is already done.
+\\     - Using ancestral sequence reconstruction using SIMMAP
+\\     - Blast based placement
+\\     - Update and correct tree
+\\     FIGURE HERE? YES!
+\\  - Plan for the project:
+\\     - Describe current Stamatakis perpetual tree updating
+\\     - Collaborate with Stamatakis to incorporate the PLL library t speed up process.
+\\Link to   host -  LPLL (???) library of will make faster
+\\       - Holder connection
+\\     - What we will do....
+\\         OK!
+\\     Places to build:
+\\         - gene tree species tree future directions..
+\\Time schedule w/ milestones:
+\\   Requested fellowship length: 12 months
+\\   (I have no idea what milestones should be....)
+\\Conclusions:
+\\   - future applications
+\\   - Exciting future of technology and biology!
+\\  
+\\Bibliography:
+
+
+
+
+OK- looks ok so far...
+
+What next?
+
+- Hmmer or something instead of Blast?
+- Compare to tree from scratch?
+- Add it back in at top 3 locations and topology test?
+- Include distribution of source trees and compare?
+- Look at changes in marginal probabilities if you add tips prune and re-graft?
+
+Place it and search with that as a starting tree - 
+and compare ML score of tree with placement to the possible - compare to the best tree that it is possible to find for that set of taxa…
+
+Simplify the problem.
+Blast based vs brute force, vs new analysis with old starting tree
+
+1) Is the same or better than other placement strategies in terms of ML score of tree?
+is that placement better than pplacer kind of placements, Stamatakis kind of placements? … 
+
+2) how does that tree compare to reference tree
+- is reconstructing the ancestors helpful?
+
+Would thorough search from new “placed tree” make things better?
+How does the tree differ between placement tree and the search tree?
+
+
+-> one this placed tree, how do you get improvement.
+or add one at a time and do a thorough search 
+
+Look into fixing the model of evolution see if that speeds up simmapping part?!
+
+
+OK! AT this moment I am just creating polytomies… SHould tip be attached above or below the node?!
+
+
+
+
+Felsensteins pruning algorithim made the development of maximum likelihood estimation in phylogenetics possible by re-using likelihood computations.
+
+This algorithim relies of assessing the marginal likelihood of any state at each node in the phylogeny, conditional on the states of the descendent node (Ummmm FIX)
+
+As is apparent if you think about adding tips onto a tree, as the tree becomes very large, new tips added to a region of the tree will have less and less impact on the marginal probabilities of states at nodes deeper in the tree, until the differences become infinitesimal. In those regions of the tree the addition of these tips will no longer impact branch support or topology. However, how far one needs to track backwards into the tree to determine where additions stop impacting tree topology is unclear.
+
+We plan to address this problem in two parts:
+
+1) Develop methods to place taxa on trees using ancestral state reconstructions. By inferring ancestral states the appropriate region of the tree to which a tip should be added is better represented.
+
+--update the alignments somewhere in here?! BAH. What about indels?!
+
+2) Calculate the changes in marginal probabilities due too the addition of a tip in that region of the tree.
+
+3) Re-estimate topology and branch support for the region of the tree in which marginal probabilities are impacted.
+
+4) Develop a rapid computational pipeline/algorithm?! to make this procedure possible even on very large trees.

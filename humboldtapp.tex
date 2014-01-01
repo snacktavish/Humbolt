@@ -1,0 +1,208 @@
+% Template for PLoS
+% Version 1.0 January 2009
+%
+% To compile to pdf, run:
+% latex plos.template
+% bibtex plos.template
+% latex plos.template
+% latex plos.template
+% dvipdf plos.template
+
+\documentclass[10pt]{article}
+
+% amsmath package, useful for mathematical formulas
+\usepackage{amsmath}
+% amssymb package, useful for mathematical symbols
+\usepackage{amssymb}
+
+% graphicx package, useful for including eps and pdf graphics
+% include graphics with the command \includegraphics
+\usepackage{graphicx}
+
+% cite package, to clean up citations in the main text. Do not remove.
+\usepackage{cite}
+
+\usepackage{color} 
+
+% Use doublespacing - comment out for single spacing
+%\usepackage{setspace} 
+%\doublespacing
+
+
+% Text layout
+\topmargin 0.0cm
+\oddsidemargin 0.5cm
+\evensidemargin 0.5cm
+\textwidth 16cm 
+\textheight 21cm
+
+% Bold the 'Figure #' in the caption and separate it with a period
+% Captions will be left justified
+\usepackage[labelfont=bf,labelsep=period,justification=raggedright]{caption}
+
+% Use the PLoS provided bibtex style
+\bibliographystyle{plos2009}
+
+% Remove brackets from numbering in List of References
+\makeatletter
+\renewcommand{\@biblabel}[1]{\quad#1.}
+\makeatother
+
+
+% Leave date blank
+\date{}
+
+\pagestyle{myheadings}
+
+\begin{document}
+
+% Title must be 150 characters or less
+\begin{flushleft}
+{\Large
+\textbf{Rapidly updating tree topologies using ancestral state reconstruction}
+}
+% Insert Author names, affiliations and corresponding author email.
+\\
+Emily Jane McTavish, Univeristy of Kansas, Lawrence KS, USA
+\\
+
+$\ast$ E-mail: mctavish@ku.edu
+\end{flushleft}
+
+% Please keep the abstract between 250 and 300 words
+\section*{Brief Summary}
+
+brief summary (20 lines max.) of proposed research project (please give detailed description separately)
+
+While sequencing technology has developed rapidly over the past 10 years, phylogenetic methods have not kept pace with the expansion of available data. Even for single loci there is a significant lag between data generation and incorporation into estimates of evolutionary history. Currently, after many new taxa are sequenced in a researches group of interest , a whole new phylogenetic analysis is preformed, re-estimating all relationships in the phylogeny. This process could be streamlined by phylogenetic updating of existing trees with new data, rather than wholesale reanalysis, as is the current standard. While re-analysis may seem unproblematic given the accessibility of compute resources, these analysis requires not only large amounts of compute time to optimize complex models, but also researcher time, to curate align and analyze the dataset. With current phylogenies including 20,000 (Smith et al.) or more tips, full re-estimation of evolutionary models and topologies using available heuristic methods is non-trivial.  By developing procedures to update existing phylogenies with new information rather than re-analysis, we can streamline this procedure and help phylogenetic methods catch up with the rate of data generation. Although rapid placement algorithms exist, these merely classify sequences based on a pre existing backbone, and do not update evolutionary relationships. By building on the work of the Stamatakis lab at The Institute for Theoretical Studies in developing the the Phylogenetic Likelihood Library (PLL) we will create tools that researchers can use continually update phylogenetic hypotheses with new data.
+
+
+
+\section*{Research Plan}                   
+
+\textsl{The research plan should include the following information: subject, methods, aims, bibliography and time schedule for the planned research project. Please set milestones for the sponsorship period in your time schedule.
+The research plan should be five to ten pages in length.
+It should be drawn-up independently by the applicant and agreed upon with the proposed host prior to submission.}
+
+Proposed period of funding : 10 months
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+\section*{Introduction}
+  - The importance of phylogenetics in research today\\
+Phylogenetic trees describe the evolutionary relationships among groups of organisms. Understanding these relationships is essential making inferences about biological processes. Phylogenies are the basis for examining trait evolution though time (e.g. \cite{omeara_testing_2006}), have been applied to tracking disease transmission and spread (e.g. \cite{timme_phylogenetic_2013} MORE), and are used to inform conservation decisions (e.g. \cite{isaac_mammals_2007}), and understand processes of community assembly (\cite{emerson_phylogenetic_2008}). Phylogenetics is used to answer questions about human origins (\cite{endicott_using_2010}). Researchers on the Open Tree of life project are curating and combining hundreds of phylogenies to develop an accessible and reusable tree of life for all species (\cite{drew_lost_2013}). All of these downstream analyses rely on the availability of accurate phylogenetic estimates for the species of interest \cite{stoltzfus_phylotastic!_2013}.
+
+
+\subsection*{Phylogenetic reconstruction}
+
+Tree-like reconstructions of species relationships have been applied to species taxonomy since Linnaeus, but over the past few decades the inference of phylogenetic relationships from DNA sequence data has exploded in popularity. Whereas 100 years ago inferring evolutionary relationships required taxonomic expertise and hand coding of morphological characters across many individual specimens, today millions of DNA base pairs can be sequenced a few hours. Next generation sequencing technologies are continuing to rapidly increase the availability of sequence data for thousands of species that have not previously been included in phylogenies. As the data available for phylogenetic inference has increased, so has the complexity of the models used to infer these phylogenies. Maximum likelihood and Bayesian estimators can take advantage of models that include biological knowledge about sequence evolution, such as differences in rates of nucleotide substitutions or codon based models of evolution. These methodological advances have greatly increased the accuracy with which researchers are able to infer evolutionary relationships. In the past year phylogenies with more than XXXX tips inferred using maximum likelihood methods have been published (XXXX, ref; XXXX; ref).
+
+The complexity of appropriate models for biological sequence data means that these analyses can be computationally expensive (ref?!). Even with the recent advances in compute power and the availability of large cluster resources, the computational time for inferring these phylogenies can be significant. In addition, exact searches cannot be made, and therefore... heuristics something something.
+
+
+\subsection*{Current approaches for updating phylogenies}
+
+Problematically, current methods rely on inference optimizing the topology and branch lengths across the entire phylogeny. Therefore, if a new axon is sampled, it cannot be included in the tree without performing a full reanalysis.  Re-analyses of phylogenies in the face of new taxa is important, as additional data can add information that can clarify relationships even in other clades, nonetheless, as tree get very large, new taxa are unlikely to impact relationships in distant parts of the tree. Therefore researchers generally wait until several new taxa have been sequenced, and then perform a full reanalysis, and publish an 'updated' phylogeny. For example, in green plants as rbcL is sequences in new taxa, these are added to alignments and reanalyze (cite that update to green plants paper). This process requires not only significant compute time but also non-trivial researcher man hours, as phylogenetic pipelines are not automated. This creates a significant lag between the generation of sequence data for a taxon and the ability to make evolutionary inferences using that taxon.
+ADD SOME EXAMPLES!
+
+Alternatively, placement based techniques add taxa onto trees by comparison to  taxa already included in the tree. These methods are common for taxonomic assignment of bacterial samples or reads from meta genomic studies. As these method does not require re-inference of existing branches, it can be very fast. (some facts about pplacer?!) However, these placement based algorithms do not update existing branches on the tree with respect to information contained in the added taxa, and there fore can only be used to add a certain number of taxa and then... blah. While these placement algorithms are useful for classification of new sequences given an existing tree, they do not update the underlying phylogeny.
+
+Prof. Dr. Alexandros Stamatakis of the Heidelberg Institute for Theoretical Studies, and his lab, have been developing novel approaches to address this problem. They have developed a perpetually-updating-tree pipeline \cite{izquierdo-carrasco_algorithms_2011}. 
+This pipeline combines PHLAWD (ref) and RaxML?? to automate the updating of alignments with new sequences as they are submitted to public databases, such as ncbi GenBank, and then once several new taxa have been added re-estimate the phylogeny using...? Stamatakis et al have addressed this problem of updating trees with new sequence information by automating the gleaning of new sequences for a taxon of interest from genbank, automatically aligning them, and when a critical mass have amassed using the previous topology as a starting tree and estimating a new topology. This method efficiently automate the process many researcher have previously applied to their taxon of interest. My using the previous phylogeny as a starting tree for the new search, the process is faster than inferring phylogenies from scratch. They  are currently maintaining a perpetually updated phylogeny for the green plants.
+EXPAND!
+Dr. Mark Holder, my current postdoctoral advisor at the University of Kansas, has applied for a Humboldt Research Fellowship for Experienced Researchers to collaborate with Dr. Stamatakis on further developing this perpetual-updating-tree pipeline, in particular with respect to the aspect of adding new sequences to trees following alignment. While the current perpetual tree updating pipeline speeds up phylogenetic inference by using as a starting tree the previous ML tree, and adding the new sequences by random stepwise addition, (is this even trueee?) better starting tree estimates would further speed up this process. (UGH)
+
+By collaborating with Dr. Stamatakis and Dr. Holder at Heidelberg Institute for Theoretical Studies I will build upon these approaches by utilizing ancestral sequence construction to better place taxa on trees and update those trees UGJ/
+
+
+\section*{Aims}
+ My aims are to improve on currently existing methods for updating phylogenies. Specifically, to develop a method to add new taxa to trees and rapidly evaluate the utility of the new tree that is faster than full reanalysis and better than placement.
+ 
+\section*{Methods}
+
+We have begun developing a pipeline to rapidly and accurately update phylogenetic trees with new taxa. IN brief, the pipeline consists of 1) generating a ML tree for the starting set of sequences 2) generating a set of stochastic mutational histories across the tree 3) searching those mutational histories for similarities to our test taxon 4) re-evaluating relationships within the region of the tree impacted by the tip addition.
+
+More thoroughly,
+First we perform a full maximum likelihood estimation of the phylogeny for the alignment of the starting set of taxa, using RaxML (cite RAXML). We then generate a distribution of putative ancestral states for all nodes in the phylogeny, across all branches, using stochastic simulation of mutational histories. By using stochastic simulation rather than simply the probabilities of ancestral states at each node, we generate a distribution of probabilities of full sequences across the tree, which are dependent on the stochastic occurrences which happened earlier in the evolutionary history. We then take a new taxon sequenced for the same region, and preform BLAST searchers across each node within each stochastic iteration of ancestral state mappings. BLAST is an rapid search algorithim for DNA sequences that allows us to rapidly provisionally place new sequences at nodes in the tree. We then calculate the likelihood score for a new tree with this additional branch grafter on at the at location. 
+\\     - Update and correct tree
+\\     FIGURE HERE? YES!
+
+BY collaborating with the STamaztkis lab we hope to utilize their computation expertise at high performance computing. They have developed a library of Likelihood WHaaa?!!! which we hope to leverage to speed up our calculations.
+\\  - Plan for the project:
+\\     - Describe current Stamatakis perpetual tree updating
+\\     - Collaborate with Stamatakis to incorporate the PLL library t speed up process.
+\\Link to   host -  LPLL (???) library of will make faster
+\\       - Holder connection
+\\     - What we will do....
+\\         OK!
+\\     Places to build:
+\\         - gene tree species tree future directions..
+
+
+
+
+
+  - What is already done.\\
+     - Using ancestral sequence reconstruction using SIMMAP\\
+     - Blast based placement\\
+     - Update and correct tree\\
+     FIGURE HERE? YES!\\
+  - Plan for the project:\\
+     - Describe current Stamatakis perpetual tree updating\\
+     - Collaborate with Stamatakis to incorporate the PLL library t speed up process.\\
+Link to   host -  LPLL (???) library of will make faster\\
+
+       - Holder connection\\
+     - What we will do....\\
+         OK!\\
+     Places to build:\\
+         - gene tree species tree future directions..\\
+         
+Time schedule w/ milestones:
+   Requested fellowship length: 10 months
+   (I have no idea what milestones should be....)
+
+\section*{Conclusions}
+Much computational development will be necessary in order for evolutionary analysis to keep pace with the staggering rate of data generation. Although heuristics for estimating phylogenetic relationships have been very useful and are widely applied, new approaches are needed. The Stamatikis lab has been at the forefront of development of several paradigm shifting tools for phylogenetic analysis, and by working with them I will be able to build upon their expertise.
+
+
+   - future applications
+   - Exciting future of technology and biology!
+
+
+
+
+We propose to develop a better approach for adding new taxa onto existing phylogenies that combines the pros of these pre existing methods (efficiency, rigor). Ideally it will be possible to continually build onto pre-existing phylogenies as new sequence data is added, but without re-investigating relationships that remain unchanged.
+
+- look again at Stamatakis perpetual updating?
+
+
+WE would build on this approach by developing a tactic that doesn’t require waiting until several new seqs are avail...
+
+
+AND HERE IS HOW! …
+
+Questions:
+Alignments!
+
+
+
+%\section*{References}
+% The bibtex filename
+%\bibliographystyle{plos2009}
+\bibliography{Humboldt}
+
+\section*{Figure Legends}
+\begin{figure}[!ht]
+\begin{center}
+%\includegraphics[width=1.5in]{figure.png}
+\end{center}
+\caption{
+{\bf Schematic of tree updating plan.}  Caption  should be left justified, as specified by the options to the caption package.
+}
+\label{Figure_label}
+\end{figure}
+
+
+\end{document}
+
