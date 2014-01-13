@@ -54,7 +54,10 @@
 \usepackage[labelfont=bf,labelsep=period,justification=raggedright]{caption}
 \usepackage{hyperref}
 
-
+\usepackage{xspace}
+\usepackage{ulem}
+\newcommand{\mth}[1]{{\color{red} #1}\xspace}
+\newcommand{\mthdel}[1]{{\color{red} \sout{#1}\xspace}}
 \begin{document}
 
 % Title must be 150 characters or less
@@ -74,12 +77,12 @@ $\ast$ E-mail: mctavish@ku.edu
 \section*{Brief Summary}
 
 brief summary (20 lines max.) of proposed research project (please give detailed description separately)
-
+\mth{You may need a sentence or two about what a phylogeny is.\\}
 While the speed of sequencing technology has developed rapidly over the past 10 years, the rate of phylogenetic analyses has not kept pace with the expansion of available data. 
 Even for single loci there is a significant lag between data generation and incorporation of these data into estimates of evolutionary history. 
 Currently, after many taxa are sequenced in a researcher's group of interest, a  maximum likelihood or Bayesian phylogenetic analysis is performed, estimating the evolutionary parameters and topology. 
 Following the sequencing of new taxa in this group, these all taxa are re-aligned, and a new phylogenetic analysis including these new samples is conducted. 
-This process could be streamlined by phylogenetic updating of existing trees with new data, rather than wholesale reanalysis, as is the current standard. 
+This process could be streamlined by phylogenetic updating of existing trees with new data, rather than wholesale reanalysis\mthdel{, as is the current standard}. 
 While re-analysis may seem unproblematic given the accessibility of compute resources, these analysis requires not only large amounts of compute time to optimize complex models, but also researcher time, to curate align and analyze the dataset. 
 With current phylogenies including 13,000 \cite{smith_rates_2008} or more tips, full re-estimation of parameters and topologies under appropriate models of evolution is non-trivial. 
  By developing procedures to update existing phylogenies with new information rather than re-analysis, we can streamline this procedure and help phylogenetic methods catch up with the rate of data generation. 
