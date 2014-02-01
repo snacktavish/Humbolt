@@ -77,33 +77,6 @@ Emily Jane McTavish, University of Kansas, Lawrence KS, USA
 $\ast$ E-mail: mctavish@ku.edu
 \end{flushleft}
 
-% Please keep the abstract between 250 and 300 words
-\section*{Brief Summary}
-
-Phylogenetics is the study of the evolutionary history of groups of organisms.
-These analyses are essential to much of the work going on in biology today, from understanding ecological relationships to tracking trait evolution across species.
-While the speed of sequencing technology has developed rapidly over the past 10 years, the rate of phylogenetic analyses has not kept pace with the expansion of available data. 
-Even for single loci there is a significant lag between data generation and incorporation of these data into estimates of evolutionary history. 
-Currently, after many taxa are sequenced in a researcher's group of interest, a  maximum likelihood or Bayesian phylogenetic analysis is performed, estimating the evolutionary parameters and topology. 
-Following the sequencing of new taxa in this group, these all taxa are re-aligned, and a new phylogenetic analysis including these new samples is conducted. 
-This process could be streamlined by phylogenetic updating of existing trees with new data, rather than wholesale reanalysis. 
-While re-analysis may seem unproblematic given the accessibility of compute resources, these analysis requires not only large amounts of compute time to optimize complex models, but also researcher time, to curate align and analyze the dataset. 
-With current phylogenies including 13,000 \cite{smith_rates_2008} or more tips, full re-estimation of parameters and topologies under appropriate models of evolution is non-trivial. 
-By developing procedures to update existing phylogenies with new information rather than re-analysis, we can streamline this procedure and help phylogenetic methods catch up with the rate of data generation. 
-Although rapid placement algorithms exist, these merely classify sequences based on a pre existing backbone, and do not update evolutionary relationships. 
-By building on the work of the Stamatakis lab at The Institute for Theoretical Studies in developing the the Phylogenetic Likelihood Library (PLL) and other rapid methods of phylogenetic estimation we will create tools that researchers can use continually update phylogenetic hypotheses with new data.
-
-
-
-\section*{Research Plan}                   
-
-\textsl{The research plan should include the following information: subject, methods, aims, bibliography and time schedule for the planned research project. 
-Please set milestones for the sponsorship period in your time schedule.
-The research plan should be five to ten pages in length.
-It should be drawn-up independently by the applicant and agreed upon with the proposed host prior to submission.}
-
-Proposed period of funding : 9 months
-
 %{\hline}
 
 \section*{Introduction}
@@ -121,7 +94,7 @@ All of these downstream analyses rely on the availability of accurate phylogenet
 
 \subsection*{Phylogenetic reconstruction}
 
-Tree-like reconstructions of species relationships have been applied to species taxonomy since Lamarck \cite{Lamarck_philosophie_1809}, but over the past few decades the inference of phylogenetic relationships from DNA sequence data has expanded rabidly. 
+Tree-like reconstructions of species relationships have been applied to species taxonomy since Lamarck in 1809 \cite{Lamarck_philosophie_1873}, but over the past few decades the inference of phylogenetic relationships from DNA sequence data has expanded rabidly. 
 Whereas 100 years ago inferring evolutionary relationships required coding of morphological characters across many individual specimens, today millions of DNA base pairs can be sequenced a few hours. 
 Next generation sequencing technologies are continuing to rapidly increase the availability of sequence data for thousands of species that have not previously been included in phylogenies. 
 As the data available for phylogenetic inference has increased, so has the complexity of the models used to infer these phylogenies. 
@@ -158,7 +131,7 @@ Some novel methods are currently being developed to combine the advantages of th
 Matsen and colleagues \url{http://matsen.github.io/talks/online_evolution2013.html#/} have been building on Bouchard-Cote and colleagues partially ordered set sequential monte carlo \cite{bouchard-cote_phylogenetic_2012} to re-use portions of previous Bayesian MC runs to speed up the addition of taxa in new analyses.
 
 Dr. Alexandros Stamatakis of the Heidelberg Institute for Theoretical Studies (HITS), and his lab, with whom I propose to collaborate, have been developing novel approaches to address this problem. 
-They have developed a perpetually-updating-tree pipeline \cite{izquierdo-carrasco_perpetual_????}. 
+They have developed a perpetually-updating-tree pipeline \cite{izquierdo-carrasco_pumper:_2014}. 
 This pipeline combines PHLAWD \cite{smith_mega-phylogeny_2009} and RaxML-light \cite{stamatakis_RAxML-Light:_2012} to automate the updating of alignments with new sequences as they are submitted to public databases, such as NCBI GenBank. 
 Once several new taxa have been added re-estimate the phylogeny using the previous topology as a starting tree. 
 This method efficiently automate the process researchers have previously applied to their taxon of interest. 
