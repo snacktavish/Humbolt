@@ -25,8 +25,8 @@
 
 % Use doublespacing - comment out for single spacing
 \usepackage{setspace} 
-\doublespacing
-
+%\doublespacing
+\onehalfspacing
 
 % Text layout
 \topmargin 0.0cm
@@ -36,7 +36,8 @@
 \textheight 21cm
 
 % Use the PLoS provided bibtex style
-\bibliographystyle{plain}
+%\bibliographystyle{plain}
+\bibliographystyle{plos2009}
 
 % Remove brackets from numbering in List of References
 \makeatletter
@@ -94,24 +95,25 @@ All of these downstream analyses rely on the availability of accurate phylogenet
 
 \subsection*{Phylogenetic reconstruction}
 
-Tree-like reconstructions of species relationships have been applied to species taxonomy since Lamarck in 1809 \cite{Lamarck_philosophie_1873}, but over the past few decades the inference of phylogenetic relationships from DNA sequence data has expanded rabidly. 
+Tree-like reconstructions of species relationships have been applied to species taxonomy since Lamarck in 1809 \cite{Lamarck_philosophie_1873}, but over the past few decades the inference of phylogenetic relationships from DNA sequence data has expanded rapidly. 
 Whereas 100 years ago inferring evolutionary relationships required coding of morphological characters across many individual specimens, today millions of DNA base pairs can be sequenced a few hours. 
 Next generation sequencing technologies are continuing to rapidly increase the availability of sequence data for thousands of species that have not previously been included in phylogenies. 
+Phylogenies with 13,000 or more tips have been published \cite{smith_mega-phylogeny_2009},\cite{smith_understanding_2011}.
 As the data available for phylogenetic inference has increased, so has the complexity of the models used to infer these phylogenies. 
 Maximum likelihood and Bayesian estimators can take advantage of models that include biological knowledge about sequence evolution, such as differences in rates of nucleotide substitutions (e.g. \cite{Jukes_evolution_1969}) or codon based models of evolution \cite{shapiro_choosing_2006}. 
 These methodological advances have greatly increased the accuracy with which researchers are able to infer evolutionary relationships, even in challenging cases \cite{kuhner_simulation_1994}. 
 However, the complexity of appropriate models for biological sequence data means that these analyses can be computationally expensive. 
-Even with recent advances in processing power and the availability of high performance computing resources, the computational time for inferring these phylogenies under maximum likelihood can be significant, even using the most efficient available approaches \cite{stamatakis_RAxML-VI-HPC:_2006}.
-Thus, for very large trees researchers often use less optimal approaches such as distance metrics or approximately-maximum-likelihood approaches such as FastTree \cite{price_fasttree:_2009, price_fasttree_2010}
+Even with recent advances in processing power and the availability of high performance computing resources, the computational time for inferring these phylogenies under maximum likelihood can be significant, even using the most efficient available approaches \cite{stamatakis_raxml-vi-hpc:_2006}.
+Thus, for very large trees researchers often use less optimal approaches such as distance metrics or approximately-maximum-likelihood approaches such as FastTree \cite{price_fasttree:_2009, price_fasttree_2010}.
 
 
 \subsection*{Current approaches for updating phylogenies}
 
 Maximum likelihood and Bayesian approaches to phylogeny use heuristics to optimize the sequence evolution parameters and topology for a sequence alignment of sampled taxa. 
 If a new taxon is sampled, it cannot be included in the tree without aligning it and performing a full reanalysis. 
- Re-analyses of phylogenies in the face of new taxa is important, as additional data can add information that can affect relationships even in other clades as well as confidence in existing relationships. 
+Re-analysis of phylogenies in the face of new taxa is important, as additional data can add information that can affect relationships even in other clades as well as confidence in existing relationships. 
 Therefore researchers generally wait until several new taxa have been sequenced, and then perform a full reanalysis, and publish an updated phylogeny. 
-This process requires not only significant compute time but also non-trivial researcher man hours, as phylogenetic pipelines are largely not automated. 
+This process requires not only significant compute time but also non-trivial researcher person hours, as phylogenetic pipelines are largely not automated. 
 Several pipelines to automate phylogenetic analyses with respect to data have been developed (e.g mor \cite{hibbett_automated_2005}; WASABI \cite{kauff_WASABI:_2007}; HAL \cite{robbertse_hal:_2011}). 
 While these pipelines streamline determining orthology and aligning sequences, they do not leverage the information gained by previous phylogenetic analyses. 
 This creates a significant time lag between the generation of sequence data for a taxon and the ability to make evolutionary inferences using that taxon.
@@ -119,20 +121,22 @@ This creates a significant time lag between the generation of sequence data for 
 An alternative to re-analysis is using placement techniques. 
 These approaches add taxa onto trees by comparison to taxa already included in the tree. 
 Pplacer \cite{matsen_pplacer:_2010} is a maximum likelihood and Bayesian approach to placing samples on a phylogenetic tree. 
+EPA is an evolutionary placement algorithm developed in the Stamatakis lab which rapidly places short reads on a phylogeny\cite{berger_performance_2011}
 Placement methods are common for taxonomic assignment of bacterial samples or reads from meta-genomic studies (e.g. 
 Phylosift \cite{darling_phylosift:_2014}). 
 These placement allow rapid classification of new samples based on an existing backbone phylogeny, even for reads with little phylogenetic signal. 
 As these methods do not require re-inference of existing branches, it can be very fast. 
 However, these placement based algorithms do not update existing branches on the tree with respect to information contained in the added taxa. 
-While these placement algorithms are useful for classification of new sequences given an existing tree, they do not update the underlying phylogeny.
+While these placement algorithms are useful for classification of new sequences given an existing tree, they do not affect the underlying phylogeny.
 
 \subsection*{New approaches}
 Some novel methods are currently being developed to combine the advantages of these two approaches. 
 Matsen and colleagues \url{http://matsen.github.io/talks/online_evolution2013.html#/} have been building on Bouchard-Cote and colleagues partially ordered set sequential monte carlo \cite{bouchard-cote_phylogenetic_2012} to re-use portions of previous Bayesian MC runs to speed up the addition of taxa in new analyses.
 
-Dr. Alexandros Stamatakis of the Heidelberg Institute for Theoretical Studies (HITS), and his lab, with whom I propose to collaborate, have been developing novel approaches to address this problem. 
-They have developed a perpetually-updating-tree pipeline \cite{izquierdo-carrasco_pumper:_2014}. 
-This pipeline combines PHLAWD \cite{smith_mega-phylogeny_2009} and RaxML-light \cite{stamatakis_RAxML-Light:_2012} to automate the updating of alignments with new sequences as they are submitted to public databases, such as NCBI GenBank. 
+Dr. Alexandros Stamatakis of the Heidelberg Institute for Theoretical Studies (HITS), and his lab, with whom I propose to collaborate, have been developing novel approaches to address this problem.
+They have developed several very efficient software packages for phylogenetics including RAxML \cite{stamatakis_RAxML_2014},\cite{stamatakis_RAxML-Light:_2012}\cite{stamatakis_raxml-vi-hpc:_2006} for maximum likelihood estimation, EAxML (Exascale Maximum LIkelihood) for very large datasets  \cite{Stamatakis_novel_2013} , and are working on ExaBayes, for rapid Bayesian phylogenetics on very large data sets.
+They recently published a perpetually-updating-tree pipeline \cite{izquierdo-carrasco_pumper:_2014}. 
+This pipeline combines PHLAWD \cite{smith_mega-phylogeny_2009} and EaxML \cite{Stamatakis_novel_2013} to automate the updating of alignments with new sequences as they are submitted to public databases, such as NCBI GenBank. 
 Once several new taxa have been added re-estimate the phylogeny using the previous topology as a starting tree. 
 This method efficiently automate the process researchers have previously applied to their taxon of interest. 
 In addition, by using the previous phylogeny as a starting tree for the new search, the search is faster than inferring phylogenies from scratch, and finds trees as good as those inferred from scratch. 
@@ -141,7 +145,7 @@ They  are currently maintaining a perpetually updated phylogeny for the green pl
 Dr. Mark Holder, my current postdoctoral advisor at the University of Kansas, has applied for a Humboldt Research Fellowship for Experienced Researchers to collaborate with Dr. 
 Stamatakis on further developing this perpetual-updating-tree pipeline, in particular with respect to the aspect of adding new sequences to trees following alignment. 
 While the current perpetual tree updating pipeline speeds up phylogenetic inference by using as a starting tree the previous ML tree, and adding the new sequences by random stepwise addition, better starting tree estimates would further speed up this process.
-By collaborating with Dr. Stamatakis and Dr. Holder at Heidelberg Institute for Theoretical Studies I will build upon these approaches by utilizing ancestral sequence estimation to better place new taxa on phylogenetic trees and update the relationships in those trees.
+By collaborating with Dr. Stamatakis and Dr. Holder at HITS I will build upon these approaches by utilizing ancestral sequence estimation to better place new taxa on phylogenetic trees and update the relationships in those trees.
 We have some funding via the NSF-funded Open Tree of Life award (Holder is one of the principal investigators on that award); that would include some funds for me to visit Germany briefly during Dr.~Holder's sabbatical.
 This proposal would allow me to stay in Germany for a longer period of time and collaborate more extensively with the Stamatakis lab.
 
@@ -170,53 +174,64 @@ This process is summarized in figure 1, and described below.
 }  1) Estimate maximum likelihood phylogeny for starting set of taxa (A,B,C,D,E).
 2) Create distributions of potential ancestral sequences at each node (numbered 1-4 here).
 Only one potential reconstruction pictured.
-3) Blast new taxon (X) to ancestral sequences.
+3) Compare new taxon (X) to ancestral sequences.
 4) Graft new taxon onto existing phylogeny, and add to alignment.
 5) Update phylogeny under ML.
-Working with the Stamatkis lab at HITS we will be able to optimize all of these steps and explore alternative options for tree updating.
+Working with the Stamatakis lab at HITS we will be able to optimize all of these steps and explore alternative options for tree updating.
 }
 \label{Figure_label}
 \end{figure}
 
 \subsection*{Maximum Likelihood Phylogenetics}
-First we perform a full maximum likelihood estimation of the phylogeny for the alignment of the starting set of taxa, using RaxML \cite{stamatakis_RAxML-VI-HPC:_2006} (Figure 1.1). 
+First we perform a full maximum likelihood estimation of the phylogeny for the alignment of the starting set of taxa, using RAxML \cite{stamatakis_RAxML_2014}, (Figure 1.1). 
 While in the preliminary pipeline we move forward with only the maximum likelihood tree found in our search, we will test whether using a distribution of trees improves results. 
 RAxML, developed by the Stamatakis lab the most computationally efficient approach to estimating maximum likelihood phylogenies available today. 
-It has been optimized for use on high performance computing clusters \cite{stamatakis_RAxML-VI-HPC:_2006} as well as for very large phylogenies \cite{stamatakis_RAxML-Light:_2012}.
+It has been optimized for use on high performance computing clusters \cite{stamatakis_raxml-vi-hpc:_2006} as well as for very large phylogenies\cite{stamatakis_RAxML-Light:_2012}.
 
 \subsection*{Stochastic mapping of ancestral states}
 From our starting tree we then generate a distribution of putative ancestral states for all nodes in the phylogeny, across all branches, using stochastic simulation of mutational histories. 
 Stochastic simulation of mutations on phylogenies captures possible mutational histories along phylogenies \cite{nielsen_mapping_2002}\cite{huelsenbeck_stochastic_2003} and has been implemented both in a standalone GUI \cite{bollback_simmap:_2006} and as an R package \cite{revell_phytools:_2012}. 
-Felsensteins pruning algorithim \cite{felsenstein_evolutionary_1981}, upon which ML phylogenetic methods are based, calculates the probability of each base at each site at each node in the tree. 
+Felsenstein's pruning algorithm \cite{felsenstein_evolutionary_1981}, upon which ML phylogenetic methods are based, calculates the probability of each base at each site at each node in the tree. 
+The Stamatakis lab's Phylogenetic Likelihood Library (PLL) have a function to calculate these marginal ancestral sequences \url{http://www.libpll.org/}.
 By using stochastic mapping we can derive a joint distribution of character states at each site across the tree, and combine those to form full joint distributions of putative alignments. 
 Although generating these distributions is a computationally slow step, these alignments of putative ancestral states can be updated as new tips are added and do not need to be generated anew. 
 Alternatively, Pupko\cite{pupko_fast_2000} \cite{Ashkenazy_FastML:_2012} has an algorithm for efficiently sampling the ML joint reconstruction at nodes. 
-We can modify that algorithim to just sample from the posterior at nodes rather than along branches.
+We can modify that algorithm to just sample from the posterior at nodes rather than along branches.
 We will investigate the relative accuracy and efficiency of these different approaches.
 
 \subsection*{Local alignments}
-Following inference of ancestral states at nodes (Figure 1) We then take a new taxon sequenced for the same region, and preform BLAST searchers across each node within each stochastic iteration of ancestral state mappings. 
-BLAST is an rapid search algorithim for DNA sequences that allows us to rapidly provisionally place new sequences at nodes in the tree. 
+Following inference of ancestral states at nodes, we then take a new taxon sequenced for the same region, and perform BLAST\cite{altschul_gapped_1997} or Smith-Waterman\cite{rognes_faster_2011} searchers across each node within each stochastic iteration of ancestral state mappings. 
+BLAST is an rapid search algorithm for DNA sequences that allows us to rapidly provisionally place new sequences at nodes in the tree. 
 We will add the novel sequence to the multiple sequence alignment used to build the tree. 
 We will compare alternative alignment techniques to determine the best approach to adding sequences, including profile based alignment \cite{loytynoja_accurate_2012} \cite{smith_mega-phylogeny_2009} and tracking insertion deletion histories using automata theory \cite{westesson_accurate_2012}.
+PaPaRa \cite{Berger_aligning_2011} is a fast phylogeny informed method for accurately adding taxa to an alignment developed in the Stamatakis lab.
+
 
 \subsection*{Re-optimization}
 We then calculate the likelihood score for a new tree with this additional branch grafted on at the at location or locations suggested by the BLAST step. 
-By using this new starting tree informed by ancestral state distributions, and building upon previous ML estimates of parameter values, we will be able to rapidly generate trees as good as those estimated from scratch. 
+By using this new starting tree informed by ancestral state distributions, and building upon previous ML estimates of parameter values, we will be able to rapidly generate trees as good or better than those estimated from scratch. 
+
+\subsection*{Testing}
+We will thoroughly investigate several potential issues, including the impact of the addition order of taxa as we rebuild the tree, and whether global tree rearrangements are required on top of the process we propose.
+We will compare the speed and accuracy of out taxon addition procedure to alternative taxon addition procedures as well as to full re-analyses.
 
 
 \subsection*{Software}
-When we have tested and determined an effective procedure for updating phylogenies with new sequences, we will develop a software package to be used by researches in the field.
+When we have tested and determined an effective procedure for updating phylogenies with new sequences, we will develop an open source software package to be used by researchers in the field.
 
 \subsection*{Advantages of collaboration with Stamatakis lab}
-By collaborating with the Stamatakis lab we will be able to learn from their computation expertise in efficient high performance computing. 
-They have developed a parallelized software library, Phylogenetic Likelihood library (PLL) \url{http://www.libpll.org/} which we hope to leverage to speed up our calculations. 
-By working directly with the Stamatakis lab we will be able to move forward without replicating work they have already accomplished.
+
+By collaborating with the Stamatakis lab I will be able to improve my skills in high performance computing and low level program optimization  
+They have developed a parallelized software library, Phylogenetic Likelihood Library (PLL)  which we hope to leverage to speed up our calculations. 
+In addition, I can work with the postdoc Dr. Tomas Flouri to incorporate the stochastic mapping of ancestral states into PLL.
+By working directly with the Stamatakis lab I will be able to move forward without replicating work they have already accomplished.
+I will be able to build upon their work on ExaBayes  \cite{Stamatakis_novel_2013} , EPA \cite{Berger_performance_2011}, and PaPaRa  \cite{Berger_aligning_2011} .
 
 
 \subsection*{Additional potential}
 If development of tools for phylogeny updating is successful within the time frame of the project, there are many potential directions for expansion. 
 While many phylogenies are currently built using information from a single gene, incorporating information from multiple loci makes inferences more robust \cite{edwards_looking_2009}. 
+Rapid phlyogenetics at the single locus level can then be extended to genome scale analyses.
 By speeding up updating of gene-trees, we can incorporate multiple gene trees into species phylogenies.
 Ideally the software we develop for rapid phylogenetic updating can be incorporated into open online phylogeny resources, such as The Open Tree of Life project. 
 This project, which Dr. 
@@ -225,14 +240,14 @@ By integrating rapid phylogeny update tools with this online phylogeny repositor
 Phylogenetic updating also has potential for rapid response to disease spread. 
 Incorporating pathogen isolates into phylogenies can inform public health officials about the potential source \cite{timme_phylogenetic_2013}.
 In addition, as genomic sequencing is becoming common across wide taxonomic breadth, imputed internal sequences can assist in homology searching.
-Although PSI-BLAST \cite{Altschul_gapped_1997} tries to exploit phylogenies, but using distributions of joint ancestral sequence samples could facilitate better detection of homology in distant comparisons.
+Although PSI-BLAST \cite{altschul_gapped_1997} tries to exploit phylogenies, but using distributions of joint ancestral sequence samples could facilitate better detection of homology in distant comparisons.
 
          
 \section*{Time schedule w/ milestones}
    Requested fellowship length: 9 months
  
 \begin{itemize}
-  \item{Months 1-2} Familiarize self with RaxML code and PLL library, with assistance of Stamatakis Lab. 
+  \item{Months 1-2} Familiarize self with RAxML code and PLL library, with assistance of Stamatakis Lab. 
 Develop C coding skills.
   \item{Month 3} Develop brute-force computational approaches and test if these methods are accurate using simulated data.
   \item{Month 4-5} Optimize and test code. Develop for distribution 
